@@ -1,6 +1,6 @@
 'use strict';
 
-juke.controller('PlayListCtrl', function($scope, PlayListFactory, $rootScope, $stateParams, $state, SongFactory) {
+juke.controller('PlayListCtrl', function($scope, PlayListFactory, $rootScope, $stateParams, $state, SongFactory, PlayerFactory) {
 
 	$scope.playListSubmit = function() {
 		console.log($scope.playListName);
@@ -11,20 +11,33 @@ juke.controller('PlayListCtrl', function($scope, PlayListFactory, $rootScope, $s
 				console.log(playlist)
 				$scope.playListName = "";
 				$rootScope.$broadcast('newplaylist');
-				$state.go('singlePlaylist', {id: playlist.id});
+				$state.go('singlePlaylist', {
+					id: playlist.id
+				});
 			})
 	}
 
 	SongFactory.getAllSongs()
-		.then(function(songs){
-			$scope.songList = songs;
+		.then(function(songs) {
+			$scope.songList = songs
+
 		})
 
-	$scope.addSongToPlaylistSubmit = function(playlistID){
-		SongFactory.addSong(playlistID,$scope.addSong)
-			.then(function(result){
+	$scope.toggle = function(song) {
+		if (song !== PlayerFactory.getCurrentSong()) {
+			PlayerFactory.start(SongFactory.convert(song), $scope.playlist.songs);
+		} else if (PlayerFactory.isPlaying()) {
+			PlayerFactory.pause();
+		} else {
+			PlayerFactory.resume();
+		}
+	};
+
+	$scope.addSongToPlaylistSubmit = function(playlistID) {
+		SongFactory.addSong(playlistID, $scope.addSong)
+			.then(function(result) {
 				$scope.playlist.songs.push(result);
-			}).catch(function(err){
+			}).catch(function(err) {
 				console.log(err);
 			})
 	}
