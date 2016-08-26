@@ -25,3 +25,25 @@
   <small ng-hide="playlist.songs.length">No songs.</small>
   <hr>
 </div>
+
+
+<div class="well">
+  <form name="addSongForm" class="form-horizontal">
+    <fieldset>
+      <legend>Add song to playlist</legend>
+      <div class="form-group">
+        <label class="col-xs-2 control-label">Name</label>
+        <div class="col-xs-10">
+<!--           <input class="form-control" type="text" ng-maxlength="16" name="playListNameField" ng-model="playListName" required autocomplete="off"> -->
+            <select ng-options="song.name for song in songList" name="addSong" ng-model="addSong"></select>
+        </div>
+        <div class="alert alert-warning" ng-show="addSongForm.playListNameField.$dirty && addSongForm.playListNameField.$invalid">Please select a song</div>
+      </div>
+      <div class="form-group">
+        <div class="col-xs-10 col-xs-offset-2">
+          <button type="submit" class="btn btn-success" ng-disabled="addSongForm.$invalid" ng-click="playListSubmit()">Create Playlist</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
