@@ -20,6 +20,15 @@ juke.controller('PlayListCtrl', function($scope, PlayListFactory, $rootScope, $s
 			$scope.songList = songs;
 		})
 
+	$scope.addSongToPlaylistSubmit = function(playlistID){
+		SongFactory.addSong(playlistID,$scope.addSong)
+			.then(function(result){
+				$scope.playlist.songs.push(result);
+			}).catch(function(err){
+				console.log(err);
+			})
+	}
+
 
 	if (!$stateParams.id) return;
 	PlayListFactory.getPlaylistName($stateParams.id)

@@ -12,6 +12,12 @@ juke.factory('SongFactory', function ($http) {
                 .then(function(results){
                   return results.data
                 });
+    },
+    addSong: function(playlistID,song){
+      return $http.post('/api/playlists/'+playlistID+'/songs',song)
+        .then(function(result){
+          return result.data;
+        })
     }
   };
 
