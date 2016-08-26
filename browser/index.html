@@ -43,7 +43,7 @@
           <section ng-controller="SideBarPlayListCtrl">
             <h4 class="text-muted">PLAYLISTS</h4>
             <p class="playlistItem" ng-repeat="list in playListList">
-              <a>{{list.name}}</a>
+              <a ui-sref="singlePlaylist({id: list.id})">{{list.name}}</a>
             </p>
             <p>
               <a class="btn btn-primary btn-block" ui-sref="playlist"><span class="glyphicon glyphicon-plus"></span> PLAYLIST</a>

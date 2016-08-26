@@ -11,6 +11,14 @@ juke.factory('PlayListFactory', function($http){
       });
   }
 
+  playListFunctions.getPlaylistName = function(playlistID){
+  	var url = '/api/playlists/' + playlistID;
+  	return $http.get(url)
+  			.then(function(result){
+  				return result.data;
+  			})				
+  }
+
   return playListFunctions;
 
 });
