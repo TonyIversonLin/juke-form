@@ -2,15 +2,15 @@ juke.factory('PlayListFactory', function($http){
 
   var playListFunctions = {};
 
-  playListFunctions.create = function(title) {
-    var url = '/api/playlist';
-
-    return $http.post(url, title)
+  playListFunctions.create = function(data) {
+    var url = '/api/playlists';
+    console.log(data);
+    return $http.post(url, data)
       .then(function(postStatus) {
-        console.log(postStatus);
+        console.log(postStatus); //the data we created in the database
       });
   }
 
-  return playlistFunctions;
+  return playListFunctions;
 
 });
